@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kunjungan Perpustakaan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Daftar Kunjungan Perpustakaan</h1>
+            <p>Silakan isi data kunjungan Anda di bawah ini.</p>
+        </header>
+<!-- ?? Pesan sukses -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="alerts">
+      {% for category, message in messages %}
+        <div class="alert {{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+        <main>
+            <form id="form-kunjungan" method="POST">
+                <div class="form-grup">
+                    <label for="tanggal">Tanggal</label>
+                    <input type="date" id="tanggal" name="tanggal" required>
+                </div>
+
+                <div class="form-grup">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" required>
+                </div>
+
+                <div class="form-grup">
+                    <label for="kelas">Kelas</label>
+                    <input type="text" id="kelas" name="kelas" required>
+                </div>
+
+                <div class="form-grup">
+                    <label for="keperluan">Keperluan</label>
+                    <select id="keperluan" name="keperluan" required>
+                        <option value="" disabled selected>-- Pilih Keperluan --</option>
+                        <option value="Membaca Buku">Membaca Buku</option>
+                        <option value="Meminjam Buku">Meminjam Buku</option>
+                        <option value="Mengembalikan Buku">Mengembalikan Buku</option>
+                        <option value="Mengerjakan Tugas">Mengerjakan Tugas</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <!-- Form tambahan -->
+                <div id="isian-buku" class="form-grup" style="display:none;">
+                    <label for="judul_buku">Judul Buku</label>
+                    <input type="text" id="judul_buku" name="judul_buku">
+
+                    <label for="nomor_buku">Nomor Buku</label>
+                    <input type="text" id="nomor_buku" name="nomor_buku">
+                </div>
+
+                <div id="isian-lainnya" class="form-grup" style="display:none;">
+                    <label for="keterangan_lain">Tuliskan keperluan Anda</label>
+                    <input type="text" id="keterangan_lain" name="keterangan_lain">
+                </div>
+
+                <h3>PASTIKAN DATA SUDAH BENAR!!!</h3>
+                <button type="submit" class="btn">Kirim</button>
+            </form>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
